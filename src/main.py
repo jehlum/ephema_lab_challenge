@@ -121,7 +121,7 @@ async def get_code(update: Update, context: CallbackContext):
 
 
 async def group(update: Update, context: CallbackContext):
-    """Initiate the login process."""
+    """group handler entry."""
     await update.message.reply_text("Please enter your group handle :).")
     logger.info("finding group")
 
@@ -129,6 +129,7 @@ async def group(update: Update, context: CallbackContext):
 
 
 async def find_group(update: Update, context: CallbackContext):
+    """finding the group."""
     user_id = update.message.chat_id
     group_name = update.message.text
     client = user_sessions[user_id]["client"]
@@ -157,7 +158,7 @@ async def find_group(update: Update, context: CallbackContext):
             async for message in client.iter_messages(
                 group_name, limit=10, reverse=False
             ):
-                print(message.id, message.text)
+
                 complete_chat += f" message id {message.id} " + message.text
 
     if complete_chat:
@@ -169,7 +170,6 @@ async def find_group(update: Update, context: CallbackContext):
                 )
             ]
         )
-        print(complete_chat)
 
         llm_chain = LLMChain(prompt=prompt, llm=llm)
         result = llm_chain.invoke({"context": complete_chat})
@@ -251,7 +251,6 @@ def main():
 
     logger.info("Started")
 
-    print("Bot is running...")
     app.run_polling()
 
 
