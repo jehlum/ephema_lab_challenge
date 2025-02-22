@@ -179,7 +179,9 @@ async def find_group(update: Update, context: CallbackContext):
         )
         return CONTINUE
 
-    await update.message.reply_text(f"You are not a part of the group. Sorry!")
+    await update.message.reply_text(
+        f"""You are not a part of the group. Type "Yes" to enter another group name. Type "No" to quit."""
+    )
     return CONTINUE
 
 
